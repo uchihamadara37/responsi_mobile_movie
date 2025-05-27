@@ -34,9 +34,9 @@ class _FoodsScreenState extends State<MoviesScreen> {
     final movies = await ApiService().getMovies();
     print("Movies loaded: ${movies.length}");
     final favStatus = <int, bool>{};
-    // for (var movie in movies) {
-    // favStatus[movie.id!] = await _dbHelper.isFavorite(movie.id!);
-    // }
+    for (var movie in movies) {
+    favStatus[movie.id] = widget.favoriteMovie.any((fav) => fav.id == movie.id);
+    }
     setState(() {
       _movies = movies;
       _favoriteStatus = favStatus;
@@ -96,12 +96,13 @@ class _FoodsScreenState extends State<MoviesScreen> {
     bool isCurrentlyFavorite = _favoriteStatus[movie.id] ?? false;
     if (isCurrentlyFavorite) {
       // await _dbHelper.removeFavorite(movie.id);
-
+      widget.favoriteMovie.removeWhere((fav) => fav.id == movie.id);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${movie.title} removed from favorites')),
       );
     } else {
       // await _dbHelper.addFavorite( movie.id);
+      widget.favoriteMovie.add(movie);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${movie.title} added to favorites')),
       );

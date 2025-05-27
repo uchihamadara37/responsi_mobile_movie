@@ -50,6 +50,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             TextButton(
               child: const Text('Remove'),
               onPressed: () {
+                widget.favoriteMovies.remove(movie);
+                _loadFavoriteMovies();
                 Navigator.of(context).pop(true);
               },
             ),

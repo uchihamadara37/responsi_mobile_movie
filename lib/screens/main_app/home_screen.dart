@@ -28,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // _loadCurrentUser();
     _screens = [ // Inisialisasi screens setelah userId didapat
-        MoviesScreen(_favoriteMovie),
-        FavoritesScreen(_favoriteMovie),
+        MoviesScreen(favoriteMovie: _favoriteMovie,),
+        FavoritesScreen(favoriteMovies: _favoriteMovie),
         // Tambahkan ProfileScreen jika ingin sebagai tab, atau akses dari AppBar
       ];
   }
